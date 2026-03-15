@@ -16,7 +16,8 @@ const CHARTS_LAYOUT_BASE = {
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Fetch data
     try {
-        const response = await fetch('/api/data');
+        // Updated for static GitHub Pages hosting
+        const response = await fetch('data.json');
         globalData = await response.json();
     } catch (e) {
         console.error("Failed to load data:", e);

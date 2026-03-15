@@ -1,10 +1,8 @@
-from flask import Flask, jsonify, render_template
+import json
 import pandas as pd
 import numpy as np
+import io
 
-app = Flask(__name__)
-
-# --- 1. 模擬數據生成 (維持 21 欄位邏輯) ---
 def generate_mock_data():
     dates = pd.date_range(start="2026-01-01", end="2026-03-01", freq='D')
     data = []
@@ -37,14 +35,8 @@ def generate_mock_data():
         })
     return data
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/api/data')
-def get_data():
-    data = generate_mock_data()
-    return jsonify(data)
-
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    data = generate_mock_data()
+    with io.open('data.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print("Successfully generated data.json")

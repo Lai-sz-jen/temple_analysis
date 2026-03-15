@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1. Fetch data
     try {
         // Updated for static GitHub Pages hosting
-        const response = await fetch('data.json');
+        const response = await fetch('./data.json');
         globalData = await response.json();
     } catch (e) {
         console.error("Failed to load data:", e);

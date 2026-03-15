@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宮廟轉型戰情室</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>⛩️ 經營選單</h1>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3>請選擇分析模組：</h3>
+                    <ul id="nav-options">
+                        <li class="nav-item active" data-target="overview">📊 營運總覽</li>
+                        <li class="nav-item" data-target="event">🎯 活動效益分析</li>
+                        <li class="nav-item" data-target="traffic">🚉 交通關聯分析</li>
+                        <li class="nav-item" data-target="raw-data">📑 原始數據查詢</li>
+                    </ul>
+                </div>
+                
+                <hr>
+                
+                <div class="nav-section">
+                    <h3>篩選月份</h3>
+                    <div id="month-filters" class="checkbox-group">
+                        <!-- Checkboxes will be populated by JS -->
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    💡 提示：本數據每月更新，確保轉型決策時效性。
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- 📊 營運總覽 -->
+            <section id="overview" class="view-section active">
+                <h2>宮廟營運總覽</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-title">總參拜人次</div>
+                        <div class="metric-value" id="total-visits">0 人</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">日均參拜人數</div>
+                        <div class="metric-value" id="avg-visits">0 人</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">資料覆蓋率 (數位資訊)</div>
+                        <div class="metric-value">92% <span class="trend up">+3%</span></div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>每日人流波動趨勢 (時空維度)</h3>
+                    <div id="overview-chart" class="plotly-chart"></div>
+                    <div class="chart-insight">
+                        <strong>📊 數據洞察：</strong>本圖表展示每日參拜人潮的波動情況。高點通常對應週末或特定節慶（如元宵燈會、車公誕）。透過觀察波峰，廟方可提前部署志工與引導動線，避免人潮擁擠並提升參拜體驗。
+                    </div>
+                </div>
+            </section>
+
+            <!-- 🎯 活動效益分析 -->
+            <section id="event" class="view-section">
+                <h2>節慶活動成效評估</h2>
+                
+                <div class="metric-card highlight">
+                    <div class="metric-title">當前平均轉化率 (ECR)</div>
+                    <div class="metric-value" id="current-ecr">0.0%</div>
+                </div>
+
+                <div class="charts-grid-2">
+                    <div class="chart-container">
+                        <h3>節慶日與活動人數對比</h3>
+                        <div id="event-bar-chart" class="plotly-chart"></div>
+                        <div class="chart-insight">
+                            <strong>🎯 數據洞察：</strong>比較不同節慶的「參拜人數」與轉化為「活動參與」的人數。這有助於評估哪類活動最能吸引信眾實際參與（而非僅僅路過參拜），是優化未來行銷資源配置的關鍵指標。
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>信眾關係管理 (CRM) 漏斗</h3>
+                        <div id="event-funnel-chart" class="plotly-chart"></div>
+                        <div class="chart-insight">
+                            <strong>🌟 數據洞察：</strong>漏斗分析顯示從「進廟參拜」到「參與活動」，最終「留下聯絡資料」的轉化流失率。廟方應專注於改善最陡峭的流失階段（例如增加現場掃碼送平安符的誘因），以擴大數位信眾資料庫。
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 🚉 交通關聯分析 -->
+            <section id="traffic" class="view-section">
+                <h2>車站人流與信仰經濟分析</h2>
+                
+                <div class="metric-card highlight">
+                    <div class="metric-title">平均車站導流係數 (SPF)</div>
+                    <div class="metric-value" id="avg-spf">0.00</div>
+                    <div class="metric-desc">每 1 位出站旅客帶動的參拜人數</div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>外部人流(線)與內部人流(柱)相關性</h3>
+                    <div id="traffic-dual-chart" class="plotly-chart"></div>
+                    <div class="chart-insight">
+                        <strong>🚉 數據洞察：</strong>此圖疊加了「車站出站人次（灰線）」與「宮廟參拜人數（紅柱）」。若兩者趨勢高度一致，代表宮廟高度依賴外地客票源；若出站人多但參拜人少，則暗示存在「過客未轉化」的問題，需加強車站到宮廟的接駁或沿路行銷。
+                    </div>
+                </div>
+            </section>
+
+            <!-- 📑 原始數據查詢 -->
+            <section id="raw-data" class="view-section">
+                <h2>原始數據清單 (21 欄位)</h2>
+                
+                <div class="action-bar">
+                    <button id="download-csv" class="btn-primary">下載報表 (CSV)</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="data-table">
+                        <thead>
+                            <tr id="table-header"></tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>
